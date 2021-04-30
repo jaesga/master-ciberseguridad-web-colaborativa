@@ -51,8 +51,18 @@ public class Application extends Controller {
 
 
     public static void setMark(String student) {
-        User u = User.loadUser(student);
-        render(u);
+        if (session.contains("username")){
+            User u = User.loadUser(session.get("username"));
+            if (u != null && u.getType().equals(Constants.User.TEACHER)){
+                User us = User.loadUser(student);
+                render(us);
+            }
+            else
+                index();
+        }
+        else
+            index();
+
     }
 
     public static void doSetMark(String student, Integer mark) {
