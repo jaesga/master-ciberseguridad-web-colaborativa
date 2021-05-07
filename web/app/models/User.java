@@ -68,26 +68,26 @@ public class User {
         return new File(Constants.User.USERS_FOLDER + "/" + username);
     }
 
-    public void save(){
+    public boolean save(){
         JsonObject json = new JsonObject();
         json.addProperty(Constants.User.FIELD_USERNAME, username);
         json.addProperty(Constants.User.FIELD_PASSWORD, password);
         json.addProperty(Constants.User.FIELD_TYPE, type);
         json.addProperty(Constants.User.FIELD_MARK, mark);
-
+	boolean correct = false;
         File file = getFile();
-        if (file.exists()){
-            file.delete();
-        }
-
-        try {
-            file.createNewFile();
-            FileOutputStream out = new FileOutputStream(file);
-            out.write(json.toString().getBytes());
-        } catch (IOException e) {
-            Logger.error("Error saving user: " + username);
-            Logger.error(e.getMessage());
-        }
+        if (!file.exists()){
+        	try {
+            		file.createNewFile();
+            		FileOutputStream out = new FileOutputStream(file);
+            		out.write(json.toString().getBytes());
+			correct = true;
+        	} catch (IOException e) {
+            		Logger.error("Error saving user: " + username);
+            		Logger.error(e.getMessage());
+        	}
+	}
+	return correct;
     }
 
     public static User loadUser(String username){
