@@ -44,6 +44,11 @@
 #{/set}
 
 #{form @processRegister(), id:'form', name:'reg-form'}
+#{if flash.error}
+	<p class="error">
+		&{flash.error}
+	</p>
+#{/if}
 <h2 class="text-left">&{'Public.register.title'}</h2>
 
 #{ifErrors}
