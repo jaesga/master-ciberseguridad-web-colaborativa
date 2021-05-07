@@ -3,6 +3,7 @@ package controllers;
 import models.Constants;
 import models.User;
 import play.mvc.*;
+import play.i18n.Messages;
 
 import java.util.List;
 
@@ -57,8 +58,13 @@ public class Application extends Controller {
 
     public static void doSetMark(String student, Integer mark) {
         User u = User.loadUser(student);
-        u.setMark(mark);
-        u.save();
-        index();
+        if (mark >= 0 || mark <= 10){
+            u.setMark(mark);
+            u.save();
+            index();  
+        }else{
+            flash.put("error", Messages.get("Public.mark.error"));
+        }
+        
     }
 }
