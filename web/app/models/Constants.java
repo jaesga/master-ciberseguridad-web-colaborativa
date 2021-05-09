@@ -12,6 +12,7 @@ public class Constants {
 
         public static final String TEACHER = "teacher";
         public static final String STUDENT = "student";
+        public static final String SALT = "M8_SALT_Tarea_Colaborativa";
     }
 
 
