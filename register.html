@@ -1,0 +1,98 @@
+#{extends 'main.html' /}
+#{set title:'Register' /}
+
+#{set 'moreScripts'}
+    <script>
+    $(document).ready(function(){
+
+        $('#register-submit').click(function(){
+            result = validateForm();
+
+            if (result == true){
+                $('#form').submit();
+            }
+        });
+
+        function validateForm() {
+            var username = document.forms["reg-form"]["username"].value;
+            if (username == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+
+            var password = document.forms["reg-form"]["password"].value;
+            if (password == "") {
+                alert("Both passwords must be filled out");
+                return false;
+            }
+
+            var password2 = document.forms["reg-form"]["passwordCheck"].value;
+            if (password2 == "") {
+                alert("Both passwords must be filled out");
+                return false;
+            }
+
+            if (password != password2) {
+                alert("Both passwords should be the same");
+                return false;
+            }
+
+            return true;
+        }
+        
+    });
+    </script>
+#{/set}
+
+#{form @processRegister(), id:'form', name:'reg-form'}
+<h2 class="text-left">&{'Public.register.title'}</h2>
+
+#{ifErrors}
+<div id="register_error" class="error">${errors[0]}</div>
+#{/ifErrors}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="form-group">
+            <div class="input-icon">
+                <i class="fa fa-user"></i>
+                <input class="form-control" type="text" value="${flash.name}" placeholder="&{'Public.register.name'}" id="username" name="username" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                <input class="form-control" type="password" autocomplete="off" name="password" id="password" value="" placeholder="&{'Public.register.password'}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                <input class="form-control" type="password" autocomplete="off" name="passwordCheck" id="passwordCheck" value="" placeholder="&{'Public.register.passwordCheck'}" />
+            </div>
+        </div>
+
+        <div>
+            <div class="g-recaptcha" data-sitekey="6Lfos9caAAAAAF3RB-yfJFbR-4zCkg9rh2V0Itk8"></div>
+             <!--js-->
+             <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+
+         </div>
+
+        <div>
+            <input type="radio" name="type" value="teacher">Teacher
+            <input type="radio" name="type" value="student">Student
+        </div>
+
+
+
+    </div>
+</div>
+#{/form}
+<div class="form-actions">
+    <button id="register-submit" class="btn-bezel btn-primary pull-right submit">
+        &{'Public.register.registerButton'}
+    </button>
+</div>
+<br><br><br>
