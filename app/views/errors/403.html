@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>403 - Access denied</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>    
+    </head>
+    <body>
+        #{if play.mode.name() == 'DEV'}
+            <h2>Access denied</h2>
+        #{/if}
+        #{else}
+            <h1>Access denied</h1>
+        #{/else}
+    </body>
+</html>
