@@ -14,6 +14,7 @@ public class Secure extends Controller {
 
     public static void logout(){
         session.remove("password");
+        session.remove("username");
         login();
     }
 
