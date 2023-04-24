@@ -8,7 +8,7 @@ public class HashUtils {
 
     public static String getSHA_256(String s){
         try {
-            MessageDigest m = MessageDigest.getInstance("MD5");
+            MessageDigest m = MessageDigest.getInstance("SHA-256");
             m.reset();
             m.update(s.getBytes());
             byte[] digest = m.digest();
