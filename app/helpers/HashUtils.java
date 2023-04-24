@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 
 public class HashUtils {
 
-    public static String getMd5(String s){
+    public static String getSHA_256(String s){
         try {
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.reset();
