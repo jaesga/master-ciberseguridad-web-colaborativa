@@ -13,15 +13,20 @@ public class Secure extends Controller {
     }
 
     public static void logout(){
-        session.remove("password");
+        session.clear();
         login();
     }
 
     public static void authenticate(String username, String password){
+        // Se valida que los campos no esten vacios
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            flash.put("error", Messages.get("Public.login.error.emptyfields"));
+            login();
+            return;
+        }
         User u = User.loadUser(username);
         if (u != null && u.getPassword().equals(HashUtils.getMd5(password))){
             session.put("username", username);
-            session.put("password", password);
             Application.index();
         }else{
             flash.put("error", Messages.get("Public.login.error.credentials"));
