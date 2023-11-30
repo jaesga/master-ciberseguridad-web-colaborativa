@@ -1,6 +1,7 @@
 package controllers;
 
 
+import helpers.ApiAuth;
 import helpers.HashUtils;
 import models.User;
 import play.i18n.Messages;
@@ -13,7 +14,7 @@ public class Secure extends Controller {
     }
 
     public static void logout(){
-        session.remove("password");
+        session.clear();
         login();
     }
 
@@ -22,6 +23,7 @@ public class Secure extends Controller {
         if (u != null && u.getPassword().equals(HashUtils.getMd5(password))){
             session.put("username", username);
             session.put("password", password);
+            ApiAuth.createCookie( u.getType() );
             Application.index();
         }else{
             flash.put("error", Messages.get("Public.login.error.credentials"));

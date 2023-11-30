@@ -84,6 +84,7 @@ public class User {
             file.createNewFile();
             FileOutputStream out = new FileOutputStream(file);
             out.write(json.toString().getBytes());
+            out.close();
         } catch (IOException e) {
             Logger.error("Error saving user: " + username);
             Logger.error(e.getMessage());
