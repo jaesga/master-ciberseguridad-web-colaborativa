@@ -94,7 +94,7 @@ public class ApiAuth {
         return "";
     }
 
-    private static String generateJWT( String type ) { // generate pieces for final JWT
+    private static String generateJWT() { // generate pieces for final JWT
         
         String jwt = "";
         
@@ -113,10 +113,10 @@ public class ApiAuth {
         return jwt;     
     }
 
-    public static void createCookie( String type ) {
+    public static void createCookie() {
         
         Http.Response response = Http.Response.current(); // Access to Response flow
-        String token = generateJWT( type );
+        String token = generateJWT();
         if (token != "") 
             response.setCookie("apiCookie", token, String.format("%sd", daystoExpire.toString()) ); // Rewrite Cookie if exists
         else

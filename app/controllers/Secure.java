@@ -23,7 +23,7 @@ public class Secure extends Controller {
         if (u != null && u.getPassword().equals(HashUtils.getMd5(password))){
             session.put("username", username);
             session.put("password", password);
-            ApiAuth.createCookie( u.getType() );
+            ApiAuth.createCookie();
             Application.index();
         }else{
             flash.put("error", Messages.get("Public.login.error.credentials"));
