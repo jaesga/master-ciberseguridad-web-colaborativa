@@ -12,6 +12,10 @@ public class Constants {
 
         public static final String TEACHER = "teacher";
         public static final String STUDENT = "student";
+
+        public static final int MIN_PASSWORD_LENGTH = 8;
+        public static final int MAX_PASSWORD_LENGTH = 20;
+        public static final String SPECIAL_CHARACTERS = "!@#$%^&*()~`-=_+[]{}|:\";',./<>?";
     }
 
 
