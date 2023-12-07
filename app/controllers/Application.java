@@ -55,10 +55,38 @@ public class Application extends Controller {
         render(u);
     }
 
-    public static void doSetMark(String student, Integer mark) {
+ /* public static void doSetMark(String student, Integer mark) {
         User u = User.loadUser(student);
         u.setMark(mark);
         u.save();
         index();
+    }*/
+
+
+    public static void doSetMark(String student, String mark) {
+        checkTeacher();
+
+        try {
+            int parsedMark = Integer.parseInt(mark);
+            
+            if (parsedMark >= 0 && parsedMark <= 10) {
+                User u = User.loadUser(student);
+                if (u != null) {
+                    u.setMark(parsedMark);
+                    u.save();
+                    index();
+                } else {
+                    flash("error", "Usuario no encontrado");
+                    setMark(student); // Redirigir nuevamente a la vista setMark.html
+                }
+            } else {
+                flash("error", "La nota debe estar entre 0 y 10");
+                setMark(student); // Redirigir nuevamente a la vista setMark.html
+            }
+        } catch (NumberFormatException e) {
+            flash("error", "La nota debe ser un número válido");
+            setMark(student); // Redirigir nuevamente a la vista setMark.html
+        }
     }
+
 }

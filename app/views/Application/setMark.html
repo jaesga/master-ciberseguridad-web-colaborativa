@@ -1,11 +1,13 @@
-#{extends 'main2.html' /}
-#{set title:'Home' /}
+#{extends 'main2.html' /} #{set title:'Home' /}
 
 <br>
 
 <h3>Set mark for student: ${u.getUsername()}</h3>
-
-#{form @Application.doSetMark(u.getUsername())}
+#{if flash.contains('error')}
+<div class="alert alert-danger">
+    ${flash.get('error')}
+</div>
+#{/if} #{form @Application.doSetMark(u.getUsername())}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
