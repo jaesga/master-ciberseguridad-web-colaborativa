@@ -11,6 +11,7 @@ Public.login.forgot.link=here
 Public.login.create.description=Don't have an account yet?
 Public.login.create.link=Create an account
 Public.login.error.credentials=Invalid credentials
+Public.login.error.characters=Invalid characters
 
 
 ##### Register #####
