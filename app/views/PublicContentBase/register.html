@@ -20,6 +20,12 @@
                 return false;
             }
 
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=])[^\s]{8,}$/;
+		        if (!passwordRegex.test(password)) {
+    		        alert("Password must meet the security criteria");
+    	            return false;
+	        }
+
             var password = document.forms["reg-form"]["password"].value;
             if (password == "") {
                 alert("Both passwords must be filled out");
