@@ -13,7 +13,7 @@ public class Secure extends Controller {
     }
 
     public static void logout(){
-        //Se elimina la gestión de las sesiones con el valor "password" en el navegador y se implementa que haga un borrado completo
+        //Se elimina la gestión de las sesiones con el valor "password" en el navegador y se implementa que haga un borrado completo de todas las variables
 		session.clear();
         login();
     }
