@@ -13,7 +13,7 @@ public class Secure extends Controller {
     }
 
     public static void logout(){
-        //session.remove("password");
+        //Se elimina la gestión de las sesiones con el valor "password" en el navegador y se implementa que haga un borrado completo
 		session.clear();
         login();
     }
@@ -24,7 +24,7 @@ public class Secure extends Controller {
         if (u != null && HashUtils.checkPBKDF2Hash(password, u.getPassword(), u.getSalt())){
 
             session.put("username", username);
-            //session.put("password", password);
+            //Se elimina inclusión de la contraseña en la sesión del navegador
             Application.index();
         }else{
 
