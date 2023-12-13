@@ -13,17 +13,21 @@ public class Secure extends Controller {
     }
 
     public static void logout(){
-        session.remove("password");
+        //Se incluye una eliminación generar de las variables de sesión
+		session.clear();
         login();
     }
 
     public static void authenticate(String username, String password){
         User u = User.loadUser(username);
-        if (u != null && u.getPassword().equals(HashUtils.getMd5(password))){
+		//Se cambia el método de comprobación por hash al nuevo PBKDF2
+        if (u != null && HashUtils.checkPBKDF2Hash(password, u.getPassword(), u.getSalt())){
+
             session.put("username", username);
-            session.put("password", password);
+            //Se elimina la inclusión de la contraseña dentro de las variables de sesión
             Application.index();
         }else{
+
             flash.put("error", Messages.get("Public.login.error.credentials"));
             login();
         }
