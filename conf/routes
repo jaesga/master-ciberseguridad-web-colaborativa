@@ -5,8 +5,8 @@
 # Home page
 GET     /                                       Application.index
 GET     /remove/{student}                       Application.removeStudent
-GET     /setMark/{student}                      Application.setMark
-POST    /setMark/{student}                      Application.doSetMark
+GET     /setMark/{studentName}                  Application.setMark
+POST    /setMark/{studentName}                  Application.doSetMark
 GET     /login                                  Secure.login
 GET     /authenticate                           Secure.authenticate
 GET     /logout                                 Secure.logout

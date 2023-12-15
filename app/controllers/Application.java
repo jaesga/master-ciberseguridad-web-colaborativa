@@ -5,6 +5,7 @@ import models.User;
 import play.mvc.*;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Application extends Controller {
 
@@ -13,7 +14,7 @@ public class Application extends Controller {
 
         User u = (User) renderArgs.get("user");
         if (!u.getType().equals(Constants.User.TEACHER)){
-            return;
+            Secure.login();
         }
     }
 
@@ -25,7 +26,7 @@ public class Application extends Controller {
                 return;
             }
         }
-        Secure.login();
+
     }
 
     public static void index() {
@@ -50,15 +51,22 @@ public class Application extends Controller {
     }
 
 
-    public static void setMark(String student) {
-        User u = User.loadUser(student);
-        render(u);
+    public static void setMark(String studentName) {
+        checkTeacher();
+        User user = User.loadUser(session.get("username"));
+
+        User student = User.loadUser(studentName);
+        render(student, user);
     }
 
-    public static void doSetMark(String student, Integer mark) {
-        User u = User.loadUser(student);
-        u.setMark(mark);
-        u.save();
+    public static void doSetMark(String studentName, Integer mark) {
+        checkTeacher();
+
+        User student = User.loadUser(studentName);
+        if(student != null){
+            student.setMark(mark);
+            student.save();
+        }
         index();
     }
 }
