@@ -17,7 +17,9 @@ public class HashUtils {
             while(hashtext.length() < 32){
                 hashtext = "0" + hashtext;
             }
-        } catch (Exception e) {}
-        return s;
+            return hashtext;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to generate MD5 hash", e);
+        }
     }
 }
