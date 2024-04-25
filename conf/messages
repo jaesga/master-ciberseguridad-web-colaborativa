@@ -23,4 +23,4 @@ Public.register.registerButton=Sign up
 Public.register.validation.name=Please enter a display name we can use to address you
 Public.register.validation.password=Please enter a password
 Public.register.validation.passwordConfirmation=Please confirm your password
-Public.register.validation.existingAccount=This account is already registered. Forgot your password?
+Public.register.validation.existingAccount=This account is already registered
