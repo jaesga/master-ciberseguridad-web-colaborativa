@@ -68,7 +68,7 @@ public class User {
         return new File(Constants.User.USERS_FOLDER + "/" + username);
     }
 
-    public void save(){
+    public boolean save(){
         JsonObject json = new JsonObject();
         json.addProperty(Constants.User.FIELD_USERNAME, username);
         json.addProperty(Constants.User.FIELD_PASSWORD, password);
@@ -77,7 +77,8 @@ public class User {
 
         File file = getFile();
         if (file.exists()){
-            file.delete();
+            return false;
+            //file.delete();
         }
 
         try {
@@ -88,6 +89,7 @@ public class User {
             Logger.error("Error saving user: " + username);
             Logger.error(e.getMessage());
         }
+        return true;
     }
 
     public static User loadUser(String username){
