@@ -56,9 +56,14 @@ public class Application extends Controller {
     }
 
     public static void doSetMark(String student, Integer mark) {
+    if (mark >= 0 && mark <= 10) {
         User u = User.loadUser(student);
         u.setMark(mark);
         u.save();
         index();
+    } else {
+        flash.put("errorMessage", "El valor de la nota debe estar entre 0 y 10.");
+        setMark(student);
     }
+}
 }

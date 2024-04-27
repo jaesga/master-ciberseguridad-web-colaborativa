@@ -1,6 +1,14 @@
 #{extends 'main2.html' /}
 #{set title:'Home' /}
 
+#{if flash.errorMessage}
+<script>
+    window.onload = function() {
+        alert("${flash.errorMessage}");
+    }
+</script>
+#{/if}
+
 <br>
 
 <h3>Set mark for student: ${u.getUsername()}</h3>
@@ -11,17 +19,15 @@
 
         <div class="form-group">
             <div class="input-icon">
-                <input class="form-control" type="text" placeholder="Mark (0-10)" id="mark" name="mark" />
+                <input class="form-control" type="text" placeholder="Mark (0-10)" id="mark" name="mark" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
             </div>
         </div>
-
 
         <div class="form-actions">
             <button id="register-submit" class="btn-bezel btn-primary pull-right submit">
                 Set Mark
             </button>
         </div>
-
 
     </div>
 </div>
