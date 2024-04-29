@@ -98,13 +98,15 @@ public class User {
         return null;
     }
 
-    public static void removeAll(){
-        File f = new File(Constants.User.USERS_FOLDER + "/");
-        File[] users = f.listFiles();
-        for (File u : users){
-            u.delete();
-        }
-    }
+    public static void removeAll() {
+       File f = new File(Constants.User.USERS_FOLDER);
+       File[] users = f.listFiles();
+       for (File u : users) {
+           if (!u.getName().equals("director")) {
+               u.delete();
+           }
+       }
+   }
 
     public static boolean remove(String username){
         File f = new File(Constants.User.USERS_FOLDER + "/" + username);
