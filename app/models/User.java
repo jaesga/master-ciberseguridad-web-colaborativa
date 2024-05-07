@@ -1,6 +1,5 @@
 package models;
 
-
 import com.google.gson.JsonObject;
 import helpers.FileUtils;
 import play.Logger;
@@ -18,9 +17,17 @@ public class User {
     private String type;
     private int mark;
 
+    public static final Finder<Long, User> find = new Finder<>(User.class);
+
+    public static User findByUsername(String username) {
+        return find.query().where().eq("username", username).findOne();
+    }
+
     public User(JsonObject json) {
-        this.username = json.has(Constants.User.FIELD_USERNAME) ? json.get(Constants.User.FIELD_USERNAME).getAsString() : "";
-        this.password = json.has(Constants.User.FIELD_PASSWORD) ? json.get(Constants.User.FIELD_PASSWORD).getAsString() : "";
+        this.username = json.has(Constants.User.FIELD_USERNAME) ? json.get(Constants.User.FIELD_USERNAME).getAsString()
+                : "";
+        this.password = json.has(Constants.User.FIELD_PASSWORD) ? json.get(Constants.User.FIELD_PASSWORD).getAsString()
+                : "";
         this.mark = json.has(Constants.User.FIELD_MARK) ? json.get(Constants.User.FIELD_MARK).getAsInt() : 0;
         this.type = json.has(Constants.User.FIELD_TYPE) ? json.get(Constants.User.FIELD_TYPE).getAsString() : "teacher";
     }
@@ -64,11 +71,11 @@ public class User {
         this.mark = mark;
     }
 
-    public File getFile(){
+    public File getFile() {
         return new File(Constants.User.USERS_FOLDER + "/" + username);
     }
 
-    public void save(){
+    public void save() {
         JsonObject json = new JsonObject();
         json.addProperty(Constants.User.FIELD_USERNAME, username);
         json.addProperty(Constants.User.FIELD_PASSWORD, password);
@@ -76,7 +83,7 @@ public class User {
         json.addProperty(Constants.User.FIELD_MARK, mark);
 
         File file = getFile();
-        if (file.exists()){
+        if (file.exists()) {
             file.delete();
         }
 
@@ -90,40 +97,39 @@ public class User {
         }
     }
 
-    public static User loadUser(String username){
+    public static User loadUser(String username) {
         File f = new File(Constants.User.USERS_FOLDER + "/" + username);
-        if (f.exists()){
+        if (f.exists()) {
             return new User(FileUtils.getJsonFromFile(f));
         }
         return null;
     }
 
-    public static void removeAll(){
+    public static void removeAll() {
         File f = new File(Constants.User.USERS_FOLDER + "/");
         File[] users = f.listFiles();
-        for (File u : users){
+        for (File u : users) {
             u.delete();
         }
     }
 
-    public static boolean remove(String username){
+    public static boolean remove(String username) {
         File f = new File(Constants.User.USERS_FOLDER + "/" + username);
-        if (f.exists()){
+        if (f.exists()) {
             return f.delete();
         }
         return false;
     }
 
-    public static List<User> loadStudents(){
+    public static List<User> loadStudents() {
         List<User> rv = new ArrayList<User>();
 
         File f = new File(Constants.User.USERS_FOLDER + "/");
         File[] users = f.listFiles();
 
-
-        for (File u : users){
+        for (File u : users) {
             User user = new User(FileUtils.getJsonFromFile(u));
-            if (user.getType().equals("student")){
+            if (user.getType().equals("student")) {
                 rv.add(user);
             }
         }

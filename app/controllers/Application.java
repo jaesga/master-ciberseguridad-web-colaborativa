@@ -8,19 +8,19 @@ import java.util.List;
 
 public class Application extends Controller {
 
-    private static void checkTeacher(){
+    private static void checkTeacher() {
         checkUser();
 
         User u = (User) renderArgs.get("user");
-        if (!u.getType().equals(Constants.User.TEACHER)){
+        if (!u.getType().equals(Constants.User.TEACHER)) {
             return;
         }
     }
 
-    private static void checkUser(){
-        if (session.contains("username")){
+    private static void checkUser() {
+        if (session.contains("username")) {
             User u = User.loadUser(session.get("username"));
-            if (u != null){
+            if (u != null) {
                 renderArgs.put("user", u);
                 return;
             }
@@ -33,14 +33,13 @@ public class Application extends Controller {
 
         User u = (User) renderArgs.get("user");
 
-        if (u.getType().equals(Constants.User.TEACHER)){
+        if (u.getType().equals(Constants.User.TEACHER)) {
             List<User> students = User.loadStudents();
             render("Application/teacher.html", u, students);
-        }else{
+        } else {
             render("Application/student.html", u);
         }
     }
-
 
     public static void removeStudent(String student) {
         checkTeacher();
@@ -48,7 +47,6 @@ public class Application extends Controller {
         User.remove(student);
         index();
     }
-
 
     public static void setMark(String student) {
         User u = User.loadUser(student);
