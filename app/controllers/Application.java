@@ -14,7 +14,7 @@ public class Application extends Controller {
 
         User u = (User) renderArgs.get("user");
         if (u.getType().equals(Constants.User.TEACHER)) {
-            System.out.println("User is TEACHER");
+            System.out.println("Type: " + u.getType() + " | Name: " + u.getUsername());
             return;
         } else {
             System.out.println("Type: " + u.getType() + " | Name: " + u.getUsername());
@@ -56,8 +56,10 @@ public class Application extends Controller {
 
     public static void setMark(String student) {
         checkTeacher();
-        User u = User.loadUser(student);
-        render(u);
+        checkUser();
+        User u = (User) renderArgs.get("user");
+        User stud = User.loadUser(student);
+        render(u, stud);
     }
 
     public static void doSetMark(String student, Integer mark) {
