@@ -3,24 +3,28 @@ package controllers;
 import models.Constants;
 import models.User;
 import play.mvc.*;
+import play.i18n.Messages;
 
 import java.util.List;
 
 public class Application extends Controller {
 
-    private static void checkTeacher(){
+    private static void checkTeacher() {
         checkUser();
 
         User u = (User) renderArgs.get("user");
-        if (!u.getType().equals(Constants.User.TEACHER)){
+        if (!u.getType().equals(Constants.User.TEACHER)) {
             return;
+        } else {
+            flash.put("error", Messages.get("Public.login.error.credentials"));
+            Secure.login();
         }
     }
 
-    private static void checkUser(){
-        if (session.contains("username")){
+    private static void checkUser() {
+        if (session.contains("username")) {
             User u = User.loadUser(session.get("username"));
-            if (u != null){
+            if (u != null) {
                 renderArgs.put("user", u);
                 return;
             }
@@ -33,14 +37,13 @@ public class Application extends Controller {
 
         User u = (User) renderArgs.get("user");
 
-        if (u.getType().equals(Constants.User.TEACHER)){
+        if (u.getType().equals(Constants.User.TEACHER)) {
             List<User> students = User.loadStudents();
             render("Application/teacher.html", u, students);
-        }else{
+        } else {
             render("Application/student.html", u);
         }
     }
-
 
     public static void removeStudent(String student) {
         checkTeacher();
@@ -49,13 +52,14 @@ public class Application extends Controller {
         index();
     }
 
-
     public static void setMark(String student) {
+        checkTeacher();
         User u = User.loadUser(student);
         render(u);
     }
 
     public static void doSetMark(String student, Integer mark) {
+        checkTeacher();
         User u = User.loadUser(student);
         u.setMark(mark);
         u.save();
