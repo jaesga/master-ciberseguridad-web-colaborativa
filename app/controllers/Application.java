@@ -13,10 +13,12 @@ public class Application extends Controller {
         checkUser();
 
         User u = (User) renderArgs.get("user");
-        if (!u.getType().equals(Constants.User.TEACHER)) {
+        if (u.getType().equals(Constants.User.TEACHER)) {
+            System.out.println("User is TEACHER");
             return;
         } else {
-            flash.put("error", Messages.get("Public.login.error.credentials"));
+            System.out.println("Type: " + u.getType() + " | Name: " + u.getUsername());
+            flash.put("error", Messages.get("Public.login.error.auth"));
             Secure.login();
         }
     }
