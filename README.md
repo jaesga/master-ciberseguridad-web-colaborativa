@@ -1,8 +1,5 @@
 ## Running web steps 
 
-### WIP
-Pedro Gonzalez is working on this topic: [Vulnerabilidad en el cambio de nota a los estudiantes](https://aula.campusciberseguridad.com/mod/forum/discuss.php?d=8903)
-
 #### Requirements:
 
 - Python >= 3.12

@@ -14,10 +14,8 @@ public class Application extends Controller {
 
         User u = (User) renderArgs.get("user");
         if (u.getType().equals(Constants.User.TEACHER)) {
-            System.out.println("Type: " + u.getType() + " | Name: " + u.getUsername());
             return;
         } else {
-            System.out.println("Type: " + u.getType() + " | Name: " + u.getUsername());
             flash.put("error", Messages.get("Public.login.error.auth"));
             Secure.login();
         }
