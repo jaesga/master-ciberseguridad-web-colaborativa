@@ -1,0 +1,13 @@
+# Application dependencies
+
+require:
+    - play
+    - play-tazmaniax -> guice 1.11.1
+    - com.google.guava -> guava 32.1.2-jre
+
+repositories:
+    - tazmaniax:
+        type: http
+        artifact: https://github.com/tazmaniax/play-[module]/releases/download/v[revision]/[module]-[revision].zip
+        contains:
+            - play-tazmaniax -> *
