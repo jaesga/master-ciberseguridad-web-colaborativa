@@ -17,18 +17,22 @@ public class User {
     private String password;
     private String type;
     private int mark;
+    private boolean locked;
+    private int attempts;
 
     public User(JsonObject json) {
         this.username = json.has(Constants.User.FIELD_USERNAME) ? json.get(Constants.User.FIELD_USERNAME).getAsString() : "";
         this.password = json.has(Constants.User.FIELD_PASSWORD) ? json.get(Constants.User.FIELD_PASSWORD).getAsString() : "";
         this.mark = json.has(Constants.User.FIELD_MARK) ? json.get(Constants.User.FIELD_MARK).getAsInt() : 0;
         this.type = json.has(Constants.User.FIELD_TYPE) ? json.get(Constants.User.FIELD_TYPE).getAsString() : "teacher";
+        this.locked = json.has(Constants.User.FIELD_LOCKED) ? json.get(Constants.User.FIELD_LOCKED).getAsBoolean() : false;
+        this.attempts = json.has(Constants.User.FIELD_ATTEMPTS) ? json.get(Constants.User.FIELD_ATTEMPTS).getAsInt() : 0;
     }
 
     public User(String username, String password, String type, Integer mark) {
         this.username = username;
         this.password = password;
-        this.mark = mark;
+        this.mark = mark != null ? mark.intValue() : 0;
         this.type = type;
     }
 
@@ -64,6 +68,20 @@ public class User {
         this.mark = mark;
     }
 
+    public boolean getLocked() {
+        return locked;
+    }
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public int getAttempts() {
+        return attempts;
+    }
+    public void setAttempts(int attempts) {
+        this.attempts = attempts;
+    }
+
     public File getFile(){
         return new File(Constants.User.USERS_FOLDER + "/" + username);
     }
@@ -74,6 +92,8 @@ public class User {
         json.addProperty(Constants.User.FIELD_PASSWORD, password);
         json.addProperty(Constants.User.FIELD_TYPE, type);
         json.addProperty(Constants.User.FIELD_MARK, mark);
+        json.addProperty(Constants.User.FIELD_LOCKED, locked);
+        json.addProperty(Constants.User.FIELD_ATTEMPTS, attempts);
 
         File file = getFile();
         if (file.exists()){

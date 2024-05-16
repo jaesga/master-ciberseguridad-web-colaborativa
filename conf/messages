@@ -11,7 +11,8 @@ Public.login.forgot.link=here
 Public.login.create.description=Don't have an account yet?
 Public.login.create.link=Create an account
 Public.login.error.credentials=Invalid credentials
-
+Public.login.error.locked=Account locked. Contact the security team.
+Public.login.error.attempts=Too many failed login attempts. The user will be blocked.
 
 ##### Register #####
 Public.register.title=Register
