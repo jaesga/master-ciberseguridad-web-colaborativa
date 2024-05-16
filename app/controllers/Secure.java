@@ -23,6 +23,11 @@ public class Secure extends Controller {
     public static void authenticate(String username, String password){
         User u = User.loadUser(username);
 
+        if (u == null) {
+            flash.put("error", Messages.get("Public.login.error.credentials"));
+            login();
+        }
+        
         if (u.getLocked()) {
             flash.put("error", Messages.get("Public.login.error.locked"));
             login();
@@ -33,6 +38,7 @@ public class Secure extends Controller {
             session.put("password", password);
 
             u.setLocked(false);
+            u.setAttempts(0);
             u.save();
 
             Application.index();
