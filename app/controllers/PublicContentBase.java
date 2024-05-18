@@ -6,7 +6,7 @@ import models.User;
 import play.mvc.Controller;
 
 public class PublicContentBase extends Controller {
-
+//hola
     public static void register(){
         render();
     }
