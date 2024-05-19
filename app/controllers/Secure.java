@@ -19,7 +19,7 @@ public class Secure extends Controller {
 
     public static void authenticate(String username, String password){
         User u = User.loadUser(username);
-        if (u != null && u.getPassword().equals(HashUtils.getMd5(password))){
+        if (u != null && u.getPassword().equals(HashUtils.getSHA(password))){
             session.put("username", username);
             session.put("password", password);
             Application.index();
