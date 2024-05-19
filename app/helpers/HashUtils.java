@@ -13,8 +13,10 @@ public class HashUtils {
             m.update(s.getBytes());
             byte[] digest = m.digest();
             BigInteger bigInt = new BigInteger(1,digest);
-            String hashtext = bigInt.toString(16);
-            while(hashtext.length() < 32){
+            //String hashtext = bigInt.toString(16);
+            String hashtext = bigInt.toString(32);
+            //while(hashtext.length() < 32){
+            while(hashtext.length() < 64){
                 hashtext = "0" + hashtext;
             }
         //} catch (Exception e) {}

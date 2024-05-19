@@ -78,6 +78,7 @@ public class User {
 
         File file = getFile();
         if (file.exists()){
+            // file.delete();
             Logger.error("User alreaduy exists: " + username);
             return false;
         }else{
