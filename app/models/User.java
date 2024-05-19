@@ -68,7 +68,8 @@ public class User {
         return new File(Constants.User.USERS_FOLDER + "/" + username);
     }
 
-    public void save(){
+    //public void save(){
+    public boolean save(){
         JsonObject json = new JsonObject();
         json.addProperty(Constants.User.FIELD_USERNAME, username);
         json.addProperty(Constants.User.FIELD_PASSWORD, password);
@@ -77,16 +78,18 @@ public class User {
 
         File file = getFile();
         if (file.exists()){
-            file.delete();
-        }
-
-        try {
+            Logger.error("User alreaduy exists: " + username);
+            return false;
+        }else{
+            try {
             file.createNewFile();
             FileOutputStream out = new FileOutputStream(file);
             out.write(json.toString().getBytes());
-        } catch (IOException e) {
+            } catch (IOException e) {
             Logger.error("Error saving user: " + username);
             Logger.error(e.getMessage());
+            }
+        return true;
         }
     }
 
