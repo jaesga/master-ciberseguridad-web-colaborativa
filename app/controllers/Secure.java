@@ -9,12 +9,22 @@ import play.mvc.Controller;
 public class Secure extends Controller {
 
     public static void login(){
+        removeUserSession();
         render();
     }
 
     public static void logout(){
-        session.remove("password");
+        removeUserSession();
         login();
+    }
+
+    private static void removeUserSession() {
+        session.remove("password");
+        session.remove("username");
+    }
+
+    public static boolean isUserLoggedIn() {
+        return (session.contains("username") && session.contains("password"));
     }
 
     public static void authenticate(String username, String password){

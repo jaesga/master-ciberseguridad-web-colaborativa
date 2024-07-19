@@ -18,7 +18,7 @@ public class Application extends Controller {
     }
 
     private static void checkUser(){
-        if (session.contains("username")){
+        if (Secure.isUserLoggedIn()){
             User u = User.loadUser(session.get("username"));
             if (u != null){
                 renderArgs.put("user", u);
