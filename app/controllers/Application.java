@@ -13,7 +13,8 @@ public class Application extends Controller {
 
         User u = (User) renderArgs.get("user");
         if (!u.getType().equals(Constants.User.TEACHER)){
-            return;
+            // Lanza el mensaje para detener la operación en caso de no tener permisos
+            forbidden("No tienes permiso para realizar esta acción.");
         }
     }
 
